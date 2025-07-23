@@ -203,7 +203,7 @@ class oxchangeAccount extends plugin
     if($ldap->dn_exists("ou=addr,".$this->dn)){
     	$ldap->rmdir_recursive("ou=addr,".$this->dn);
       if (!$ldap->success()){
-        msg_dialog::display(_("LDAP error"), msgPool::ldaperror($ldap->get_error(), $this->dn, LDAP_DEL, get_class()));
+        msg_dialog::display(_("LDAP error"), msgPool::ldaperror($ldap->get_error(), $this->dn, LDAP_DEL, __CLASS__));
       }
     }
 
@@ -216,7 +216,7 @@ class oxchangeAccount extends plugin
     new log("remove","users/".get_class($this),$this->dn,array_keys($this->attrs),$ldap->get_error());
 
     if (!$ldap->success()){
-      msg_dialog::display(_("LDAP error"), msgPool::ldaperror($ldap->get_error(), $this->dn, LDAP_MOD, get_class()));
+      msg_dialog::display(_("LDAP error"), msgPool::ldaperror($ldap->get_error(), $this->dn, LDAP_MOD, __CLASS__));
     }
 
     /* Optionally execute a command after we're done */
@@ -326,7 +326,7 @@ class oxchangeAccount extends plugin
     }
 
     if (!$ldap->success()){
-      msg_dialog::display(_("LDAP error"), msgPool::ldaperror($ldap->get_error(), $this->dn, 0, get_class()));
+      msg_dialog::display(_("LDAP error"), msgPool::ldaperror($ldap->get_error(), $this->dn, 0, __CLASS__));
     }
 
     // Optionally execute a command after we're done
@@ -335,7 +335,7 @@ class oxchangeAccount extends plugin
     if($needupdate){
       $ldap->create_missing_trees("ou=addr,".$this->dn);
       if (!$ldap->success()){
-        msg_dialog::display(_("LDAP error"), msgPool::ldaperror($ldap->get_error(), $this->dn, 0, get_class()));
+        msg_dialog::display(_("LDAP error"), msgPool::ldaperror($ldap->get_error(), $this->dn, 0, __CLASS__));
       }
 
       /* Finally save data to postgresql server */
@@ -444,7 +444,7 @@ class oxchangeAccount extends plugin
           "plOptions"       => array(),
           "plRequirements"=> array(
               'ldapSchema' => array('OXUserObject' => ''),
-              'onFailureDisablePlugin' => array(get_class())
+              'onFailureDisablePlugin' => array(__CLASS__)
               ),
 
           "plProvidedAcls"  => array(
@@ -454,5 +454,5 @@ class oxchangeAccount extends plugin
           ));
   }
 }
-// vim:tabstop=2:expandtab:shiftwidth=2:filetype=php:syntax:ruler:
+
 ?>
